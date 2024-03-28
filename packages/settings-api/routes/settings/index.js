@@ -1,5 +1,8 @@
-
 export default async function (fastify, opts) {
+  /**
+   * @type {import('fastify').RouteShorthandOptions}
+   * @const
+   */
   const putOptions = {
     schema: {
       body: {
@@ -13,7 +16,6 @@ export default async function (fastify, opts) {
   fastify.put('/:userId', putOptions, async function (request, reply) {
     request.log.info(`Saving settings for user ${request.params.userId}`);
     await fastify.db.saveSettings(request.params.userId, request.body);
-
     reply.code(204);
   });
 
@@ -23,8 +25,6 @@ export default async function (fastify, opts) {
     if (settings) {
       return settings;
     }
-    return { sides: 3 };
+    return { sides: 6 };
   });
-
-
 }
